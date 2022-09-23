@@ -16,7 +16,7 @@ const App = () => {
     } catch (error) {
       console.log(error);
     }
-  });
+  }, [setCountries]);
 
   // Effect that loads all countries when app starts
   // We use useRef to ensure that the callback is called once

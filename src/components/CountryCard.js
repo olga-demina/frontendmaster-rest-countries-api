@@ -1,7 +1,7 @@
 const CountryCard = ({ commonName, population, region, capital, flag }) => {
     return (
         <div>
-            <img src={flag} alt="{`${commonName} flag`}"/>
+            <img src={flag} alt={`${commonName} flag`}/>
             <h3>{commonName}</h3>
             <ul>
                 <li>
