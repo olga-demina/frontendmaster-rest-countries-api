@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import CountriesList from "../components/CountriesList";
+import ErrorBoundry from "../components/ErrorBoundry";
 import "./App.css";
 
 const App = () => {
@@ -31,7 +32,9 @@ const App = () => {
     <h2>Loading...</h2>
   ) : (
     <div>
-      <CountriesList countries={countries}></CountriesList>
+      <ErrorBoundry>
+        <CountriesList countries={countries}></CountriesList>
+      </ErrorBoundry>
     </div>
   );
 };
