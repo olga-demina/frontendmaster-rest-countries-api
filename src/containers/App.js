@@ -11,38 +11,43 @@ const App = () => {
   const [selectedRegion, setSelectedRegion] = useState("");
 
   // Function to get all countries from api
-  const fetchAllCountries = async function () {
-    try {
-      const fetchedCountries = await (
-        await fetch("https://restcountries.com/v3.1/all")
-      ).json();
-      setCountries(fetchedCountries);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const fetchAllCountries = useCallback(
+    async function () {
+      console.log("fetching all countries");
+      try {
+        const fetchedCountries = await (
+          await fetch("https://restcountries.com/v3.1/all")
+        ).json();
+        setCountries(fetchedCountries);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [setCountries]
+  );
 
   // Function to get countries by region
-  const fetchCountriesByRegion = useCallback(async function () {
-    try {
-      const fetchedCountries = await (
-        await fetch(`https://restcountries.com/v3.1/region/${selectedRegion}`)
-      ).json();
-      setCountries(fetchedCountries);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [selectedRegion]);
+  const fetchCountriesByRegion = useCallback(
+    async function () {
+      try {
+        const fetchedCountries = await (
+          await fetch(`https://restcountries.com/v3.1/region/${selectedRegion}`)
+        ).json();
+        setCountries(fetchedCountries);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [selectedRegion]
+  );
 
-  // Effect that loads all countries when app starts
-  // We use useRef to ensure that the callback is called once
-  const isFetchedRef = useRef(false);
+  const countriesFetched = useRef(false);
   useEffect(() => {
-    if (!isFetchedRef.current) {
-      isFetchedRef.current = true;
+    if(!countriesFetched.current) {
+      countriesFetched.current = true;
       fetchAllCountries();
     }
-  }, [fetchAllCountries]);
+  }, [fetchAllCountries, countriesFetched]);
 
   // Function that updates searchField State
   const onSearchChange = (event) => {
@@ -58,9 +63,7 @@ const App = () => {
 
   // Function that fetches countries on region change or all if "all" is selected
   const onSelectChange = (event) => {
-    const region = event.target.value;
-    if (region === selectedRegion) return;
-    setSelectedRegion(region);
+    setSelectedRegion(event.target.value);
   };
 
   useEffect(() => {

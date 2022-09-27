@@ -1,10 +1,38 @@
 const RegionSelect = ({ selectChange }) => {
+  const regions = [
+    {
+      name: "Africa",
+      code: "africa",
+    },
+    {
+      name: "America",
+      code: "america",
+    },
+    {
+      name: "Asia",
+      code: "asia",
+    },
+    {
+      name: "Europe",
+      code: "europe",
+    },
+    {
+      name: "Oceania",
+      code: "oceania",
+    },
+  ];
+
+  const regionsOptions = regions.map((region) => (
+    <option key={region.code} value={region.code}>
+      {region.name}
+    </option>
+  ));
+
   return (
     <div>
       <select name="" id="" onChange={selectChange}>
         <option value="">All</option>
-        <option value="africa">Africa</option>
-        <option value="America">America</option>
+        {regionsOptions}
       </select>
     </div>
   );
