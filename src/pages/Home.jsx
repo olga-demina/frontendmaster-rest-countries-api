@@ -2,10 +2,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import CountriesList from "../components/CountriesList";
 import SearchField from "../components/SearchField";
 import ErrorBoundry from "../components/ErrorBoundry";
-import "./App.css";
 import RegionSelect from "../components/RegionSelect";
 
-const App = () => {
+const Home = () => {
   const [countries, setCountries] = useState([]);
   const [searchField, setSearchField] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
@@ -88,4 +87,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Home;
