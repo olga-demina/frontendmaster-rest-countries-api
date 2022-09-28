@@ -19,7 +19,7 @@ const Home = () => {
         ).json();
         setCountries(fetchedCountries);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
     [setCountries]
@@ -34,7 +34,7 @@ const Home = () => {
         ).json();
         setCountries(fetchedCountries);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
     [selectedRegion]
