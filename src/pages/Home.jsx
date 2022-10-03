@@ -1,28 +1,51 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CountriesList from "../components/CountriesList";
 import SearchField from "../components/SearchField";
 import ErrorBoundry from "../components/ErrorBoundry";
 import RegionSelect from "../components/RegionSelect";
+import GlobalState from "../contexts/GlobalState";
+import { useContext } from "react";
 
 const Home = () => {
-  const [countries, setCountries] = useState([]);
-  const [searchField, setSearchField] = useState("");
-  const [selectedRegion, setSelectedRegion] = useState("");
+  const [state, setState] = useContext(GlobalState);
 
   // Function to get all countries from api
+  useEffect(() => {
+    if (state.countries.length === 0) {
+      fetchAllCountries();
+    }
+  }, []);
+
+  // Function that updates searchField State
+  const onSearchChange = (event) => {
+    setState({ ...state, needle: event.target.value });
+  };
+
+  // FilteredCountries based on searchField
+  useEffect(() => {
+    if (state.countries) {
+      const filteredCountries = state.countries.filter((country) => {
+        return country.name.common
+          .toLowerCase()
+          .includes(state.needle.toLocaleLowerCase());
+      });
+      setState({ ...state, filteredCountries: filteredCountries });
+    }
+  }, [state.needle, state.countries]);
+
   const fetchAllCountries = useCallback(
-    async function () {
+    async function fetchAllCountries() {
       console.log("fetching all countries");
       try {
         const fetchedCountries = await (
           await fetch("https://restcountries.com/v3.1/all")
         ).json();
-        setCountries(fetchedCountries);
+        setState({ ...state, countries: fetchedCountries });
       } catch (error) {
         console.error(error);
       }
     },
-    [setCountries]
+    [state, setState]
   );
 
   // Function to get countries by region
@@ -30,58 +53,40 @@ const Home = () => {
     async function () {
       try {
         const fetchedCountries = await (
-          await fetch(`https://restcountries.com/v3.1/region/${selectedRegion}`)
+          await fetch(`https://restcountries.com/v3.1/region/${state.region}`)
         ).json();
-        setCountries(fetchedCountries);
+        setState({ ...state, countries: fetchedCountries });
       } catch (error) {
         console.error(error);
       }
     },
-    [selectedRegion]
+    [state.region]
   );
-
-  const countriesFetched = useRef(false);
-  useEffect(() => {
-    if(!countriesFetched.current) {
-      countriesFetched.current = true;
-      fetchAllCountries();
-    }
-  }, [fetchAllCountries, countriesFetched]);
-
-  // Function that updates searchField State
-  const onSearchChange = (event) => {
-    setSearchField(event.target.value);
-  };
-
-  // FilteredCountries based on csearchField
-  const filteredCountries = countries.filter((country) => {
-    return country.name.common
-      .toLowerCase()
-      .includes(searchField.toLocaleLowerCase());
-  });
 
   // Function that fetches countries on region change or all if "all" is selected
   const onSelectChange = (event) => {
-    setSelectedRegion(event.target.value);
+    setState({ ...state, region: event.target.value });
   };
 
   useEffect(() => {
-    if (!selectedRegion) {
+    if (!state.region) {
       fetchAllCountries();
     } else {
-      console.log("calling by region");
       fetchCountriesByRegion();
     }
-  }, [selectedRegion, fetchAllCountries, fetchCountriesByRegion]);
+  }, [state.region]);
 
-  return !countries.length ? (
+  return !state.countries || !state.countries.length ? (
     <h2>Loading...</h2>
   ) : (
     <div>
-      <SearchField searchChange={onSearchChange} />
-      <RegionSelect selectChange={onSelectChange} />
+      <SearchField searchChange={onSearchChange} needle={state.needle} />
+      <RegionSelect
+        selectChange={onSelectChange}
+        selectedRegion={state.region}
+      />
       <ErrorBoundry>
-        <CountriesList countries={filteredCountries}></CountriesList>
+        <CountriesList countries={state.filteredCountries}></CountriesList>
       </ErrorBoundry>
     </div>
   );

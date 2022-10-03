@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import BorderCountriesList from "../components/BorderCountriesList";
 import ErrorBoundry from "../components/ErrorBoundry";
 
-const Country = ({ match, location }) => {
+const Country = () => {
   const [country, setCountry] = useState({});
   const { countryName } = useParams();
 
@@ -28,7 +28,7 @@ const Country = ({ match, location }) => {
 
   useEffect(() => {
     fetchCountryDetails();
-  }, [fetchCountryDetails]);
+  }, []);
 
   const {
     name,

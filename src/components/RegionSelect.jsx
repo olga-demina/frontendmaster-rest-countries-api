@@ -1,4 +1,4 @@
-const RegionSelect = ({ selectChange }) => {
+const RegionSelect = ({ selectChange, selectedRegion }) => {
   const regions = [
     {
       name: "Africa",
@@ -30,7 +30,7 @@ const RegionSelect = ({ selectChange }) => {
 
   return (
     <div>
-      <select name="" id="" onChange={selectChange}>
+      <select name="" id="" onChange={selectChange} value={selectedRegion}>
         <option value="">All</option>
         {regionsOptions}
       </select>
