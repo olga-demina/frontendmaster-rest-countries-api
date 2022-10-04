@@ -30,7 +30,7 @@ const RegionSelect = ({ selectChange, selectedRegion }) => {
 
   return (
     <div>
-      <select name="" id="" onChange={selectChange} value={selectedRegion}>
+      <select name="" id="" onChange={selectChange} value={selectedRegion ? selectedRegion : ""}>
         <option value="">All</option>
         {regionsOptions}
       </select>

@@ -8,7 +8,7 @@ const Layout = () => {
     countries: [],
     filteredCountries: [],
     needle: "",
-    region: ""
+    region: null
   });
 
   return (

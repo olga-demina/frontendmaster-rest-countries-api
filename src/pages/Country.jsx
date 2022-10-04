@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -8,6 +8,14 @@ import ErrorBoundry from "../components/ErrorBoundry";
 const Country = () => {
   const [country, setCountry] = useState({});
   const { countryName } = useParams();
+  const countryLoaded = useRef(false);
+
+  useEffect(() => {
+    if (!countryLoaded.current) {
+      countryLoaded.current = true;
+      fetchCountryDetails();
+    }
+  }, []);
 
   const fetchCountryDetails = useCallback(
     async function () {
@@ -25,10 +33,6 @@ const Country = () => {
     },
     [setCountry, countryName]
   );
-
-  useEffect(() => {
-    fetchCountryDetails();
-  }, []);
 
   const {
     name,
