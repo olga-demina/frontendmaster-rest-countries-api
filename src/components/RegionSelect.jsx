@@ -29,8 +29,8 @@ const RegionSelect = ({ selectChange, selectedRegion }) => {
   ));
 
   return (
-    <div>
-      <select name="" id="" onChange={selectChange} value={selectedRegion ? selectedRegion : ""}>
+    <div className="flex md:justify-end">
+      <select className="px-4 py-2 rounded-md shadow-md bg-white" name="" id="" onChange={selectChange} value={selectedRegion ? selectedRegion : ""}>
         <option value="">All</option>
         {regionsOptions}
       </select>

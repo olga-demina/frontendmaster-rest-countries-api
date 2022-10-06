@@ -1,7 +1,7 @@
 const SearchField = ({ searchChange, needle }) => {
   return (
     <div>
-      <input type="search" onChange={searchChange} value={needle} />
+      <input className="shadow-md px-8 py-2 rounded-md" type="search" onChange={searchChange} value={needle} placeholder="Search for a country..."/>
     </div>
   );
 };

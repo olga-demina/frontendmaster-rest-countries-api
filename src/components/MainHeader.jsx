@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const MainHeader = () => {
   return (
-    <header>
+    <header className="font-sans">
       <h2>Where in the world?</h2>
     </header>
   );

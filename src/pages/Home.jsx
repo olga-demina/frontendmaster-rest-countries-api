@@ -85,19 +85,28 @@ const Home = () => {
     setState({ ...state, region: event.target.value });
   };
 
-  return !state.countries || !state.countries.length ? (
-    <h2>Loading...</h2>
-  ) : (
-    <div>
-      <SearchField searchChange={onSearchChange} needle={state.needle} />
-      <RegionSelect
-        selectChange={onSelectChange}
-        selectedRegion={state.region}
-      />
-      <ErrorBoundry>
-        <CountriesList countries={state.filteredCountries}></CountriesList>
-      </ErrorBoundry>
-    </div>
+  const content =
+    !state.countries || !state.countries.length ? (
+      <h2>Loading...</h2>
+    ) : (
+      <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 pt-6 gap-6">
+          <SearchField searchChange={onSearchChange} needle={state.needle} />
+          <RegionSelect
+            selectChange={onSelectChange}
+            selectedRegion={state.region}
+          />
+        </div>
+        <ErrorBoundry>
+          <CountriesList countries={state.filteredCountries}></CountriesList>
+        </ErrorBoundry>
+      </div>
+    );
+
+  return (
+    <main className="bg-slate-50">
+      <div className="container mx-auto px-4">{content}</div>;
+    </main>
   );
 };
 
