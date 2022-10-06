@@ -5,11 +5,12 @@ import ErrorBoundry from "../components/ErrorBoundry";
 import RegionSelect from "../components/RegionSelect";
 import GlobalState from "../contexts/GlobalState";
 import { useContext } from "react";
+import useDidMount from "../hooks/useDidMount";
 
 const Home = () => {
   const [state, setState] = useContext(GlobalState);
-  const isMounted = useRef(false);
   const countriesLoaded = useRef(false);
+  const didMount = useDidMount();
 
   // Function to get all countries from api on page load
   useEffect(() => {
@@ -21,15 +22,13 @@ const Home = () => {
 
   // Effect to handle region select change
   useEffect(() => {
-    if (isMounted.current && state.region !== null) {
+    if (didMount && state.region !== null) {
       if (state.region === "") {
         console.log("fetching countries");
         fetchAllCountries();
       } else {
         fetchCountriesByRegion();
       }
-    } else if (!isMounted.current) {
-      isMounted.current = true;
     }
   }, [state.region]);
 
