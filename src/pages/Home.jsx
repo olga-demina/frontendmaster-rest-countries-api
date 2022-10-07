@@ -104,7 +104,7 @@ const Home = () => {
     );
 
   return (
-    <main className="bg-slate-50">
+    <main className="bg-slate-50 pt-24">
       <div className="container mx-auto px-4">{content}</div>;
     </main>
   );
