@@ -31,6 +31,7 @@ const Home = () => {
         fetchCountriesByRegion();
       }
     }
+    // eslint-disable-next-line
   }, [state.region]);
 
   // FilteredCountries based on searchField
@@ -44,6 +45,7 @@ const Home = () => {
       });
       setState({ ...state, filteredCountries: filteredCountries });
     }
+    // eslint-disable-next-line
   }, [state.needle, state.countries]);
 
   // Function that updates searchField State
@@ -78,7 +80,7 @@ const Home = () => {
         console.error(error);
       }
     },
-    [state.region]
+    [state.region, state, setState]
   );
 
   // Function that fetches countries on region change or all if "all" is selected
