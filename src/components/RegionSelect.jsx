@@ -35,7 +35,7 @@ const RegionSelect = ({ selectChange, selectedRegion }) => {
       </label>
       <select
         id="select-region"
-        className="px-4 py-2 rounded-md shadow-md bg-white focus-visible:outline-none"
+        className="px-4 py-2 rounded-md shadow-md bg-white focus-visible:outline-none dark:bg-slate-600"
         name=""
         onChange={selectChange}
         value={selectedRegion ? selectedRegion : ""}

@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
@@ -50,8 +52,9 @@ const Country = () => {
       <h2>Loading...</h2>
     ) : (
       <div className="min-h-screen">
-        <Link to="/" className="py-1 px-8 shadow-md bg-white">
-          &#8592; Back
+        <Link to="/" className="py-1 px-6 shadow-md bg-white dark:bg-slate-600">
+          <FontAwesomeIcon className="mr-3" icon={faArrowLeft}></FontAwesomeIcon>
+          Back
         </Link>
         <ErrorBoundry>
           <section className="grid grid-cols-1 lg:grid-cols-2 mt-8">
@@ -122,7 +125,7 @@ const Country = () => {
     );
 
   return (
-    <main className="bg-slate-50 pt-24">
+    <main className="pt-24">
       <div className="container mx-auto px-4">{content}</div>
     </main>
   );
