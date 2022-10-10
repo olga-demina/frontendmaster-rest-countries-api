@@ -11,10 +11,6 @@ const Country = () => {
   const [country, setCountry] = useState({});
   const { countryName } = useParams();
 
-  useEffect(() => {
-    fetchCountryDetails();
-  }, [countryName, fetchCountryDetails]);
-
   const fetchCountryDetails = useCallback(
     async function () {
       console.log("Fetching country details");
@@ -31,6 +27,10 @@ const Country = () => {
     },
     [setCountry, countryName]
   );
+
+  useEffect(() => {
+    fetchCountryDetails();
+  }, [countryName, fetchCountryDetails]);
 
   const {
     name,
@@ -53,7 +53,10 @@ const Country = () => {
     ) : (
       <div className="min-h-screen">
         <Link to="/" className="py-1 px-6 shadow-md bg-white dark:bg-slate-600">
-          <FontAwesomeIcon className="mr-3" icon={faArrowLeft}></FontAwesomeIcon>
+          <FontAwesomeIcon
+            className="mr-3"
+            icon={faArrowLeft}
+          ></FontAwesomeIcon>
           Back
         </Link>
         <ErrorBoundry>
