@@ -35,7 +35,7 @@ const BorderCountriesList = ({ borderCountriesCodes }) => {
       return (
         <li key={index}>
           <Link
-            to={`/${nameObj.name.common}`}
+            to={`/${nameObj.name.common.split(" ").join("_")}`}
             className="text-center shadow-md py-2 bg-white w-full inline-block dark:bg-slate-600"
           >
             {nameObj.name.common}

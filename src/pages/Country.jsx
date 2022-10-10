@@ -15,9 +15,10 @@ const Country = () => {
     async function () {
       console.log("Fetching country details");
       try {
+        let countryNameUrl = countryName.split("_").join(" ");
         const countries = await (
           await fetch(
-            `https://restcountries.com/v3.1/name/${countryName}?fields=name,flags,population,region,subregion,capital,tld,currencies,languages,borders`
+            `https://restcountries.com/v3.1/name/${countryNameUrl}?fields=name,flags,population,region,subregion,capital,tld,currencies,languages,borders`
           )
         ).json();
         setCountry(countries[0]);
