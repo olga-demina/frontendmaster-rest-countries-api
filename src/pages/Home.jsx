@@ -18,6 +18,7 @@ const Home = () => {
       countriesLoaded.current = true;
       fetchAllCountries();
     }
+    // eslint-disable-next-line
   }, []);
 
   // Effect to handle region select change
