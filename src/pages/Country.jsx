@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -13,7 +13,7 @@ const Country = () => {
 
   useEffect(() => {
     fetchCountryDetails();
-  }, [countryName]);
+  }, [countryName, fetchCountryDetails]);
 
   const fetchCountryDetails = useCallback(
     async function () {
