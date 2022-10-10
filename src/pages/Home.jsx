@@ -80,7 +80,7 @@ const Home = () => {
         console.error(error);
       }
     },
-    [state.region, state, setState]
+    [state, setState]
   );
 
   // Function that fetches countries on region change or all if "all" is selected
