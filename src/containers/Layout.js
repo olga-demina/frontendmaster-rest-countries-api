@@ -8,13 +8,15 @@ const Layout = () => {
     countries: [],
     filteredCountries: [],
     needle: "",
-    region: null
+    region: null,
   });
 
   return (
     <GlobalState.Provider value={[state, setState]}>
-      <MainHeader></MainHeader>
-      <Outlet></Outlet>
+      <div className="min-h-screen bg-slate-50">
+        <MainHeader></MainHeader>
+        <Outlet></Outlet>
+      </div>
     </GlobalState.Provider>
   );
 };

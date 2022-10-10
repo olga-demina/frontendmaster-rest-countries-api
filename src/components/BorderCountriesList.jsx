@@ -33,8 +33,8 @@ const BorderCountriesList = ({ borderCountriesCodes }) => {
   if (countriesNames.length) {
     borderCountriesList = countriesNames.map((nameObj, index) => {
       return (
-        <li key={index}>
-          <Link to={`/country/${nameObj.name.common}`}>
+        <li key={index} >
+          <Link to={`/${nameObj.name.common}`} className="text-center shadow-md py-2 bg-white w-full inline-block">
             {nameObj.name.common}
           </Link>
         </li>
@@ -42,16 +42,17 @@ const BorderCountriesList = ({ borderCountriesCodes }) => {
     });
   }
 
+
   return borderCountriesList.length ? (
-    <section>
-      <h1>Border Countries</h1>
-      <ul>{borderCountriesList}</ul>
-    </section>
-  ) : (
-    <section>
-      <h1>Border countries</h1>
-      <p>No info</p>
-    </section>
+    <div className="grid grid-cols-1 lg:grid-cols-3 items-center">
+      <h2 className="mb-2 lg:mb-0 lg:mr-4 text-lg font-semibold">Border Countries: </h2>
+      <ul className="grid grid-cols-3 gap-4 lg:col-span-2">{borderCountriesList}</ul>
+    </div> 
+  ) : ( 
+    <div>
+      <h2>Border countries</h2>
+      <p>No info</p> 
+    </div>
   );
 };
 

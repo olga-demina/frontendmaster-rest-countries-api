@@ -5,7 +5,7 @@ const CountriesList = ({ countries }) => {
   const countriesComponents = countries.map((country, i) => {
     return (
       <div key={country.name.common} className="mx-auto">
-        <Link to={`country/${country.name.common}`}>
+        <Link to={`/${country.name.common}`}>
           <CountryCard
             commonName={country.name.common}
             population={country.population}

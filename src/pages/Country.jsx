@@ -8,14 +8,10 @@ import ErrorBoundry from "../components/ErrorBoundry";
 const Country = () => {
   const [country, setCountry] = useState({});
   const { countryName } = useParams();
-  const countryLoaded = useRef(false);
 
   useEffect(() => {
-    if (!countryLoaded.current) {
-      countryLoaded.current = true;
-      fetchCountryDetails();
-    }
-  }, []);
+    fetchCountryDetails();
+  }, [countryName]);
 
   const fetchCountryDetails = useCallback(
     async function () {
@@ -47,66 +43,78 @@ const Country = () => {
     borders,
   } = country;
 
+  const nativeNames = name ? Object.values(name.nativeName) : [];
+
   const content =
     Object.keys(country).length === 0 ? (
       <h2>Loading...</h2>
     ) : (
-      <div>
-        <Link to="/" className="py-1 px-8 shadow-md bg-white">&#8592; Back</Link>
+      <div className="min-h-screen">
+        <Link to="/" className="py-1 px-8 shadow-md bg-white">
+          &#8592; Back
+        </Link>
         <ErrorBoundry>
-          <section className="grid mt-8">
-            <div>
-              <img src={flags.png} alt="" />
+          <section className="grid grid-cols-1 lg:grid-cols-2 mt-8">
+            <div className="lg:pr-36">
+              <img className="w-full" src={flags.png} alt="" />
             </div>
-            <div>
-              <h1>{name.common}</h1>
+            <div className="mt-8">
+              <h1 className="font-bold text-xl mb-4">{name.common}</h1>
+              <div className="grid grid-cols-1 lg:grid-cols-2">
+                <ul className="mb-10">
+                  <li className="mb-2">
+                    <strong className="font-semibold">Native Name: </strong>
+                    <span>
+                      {nativeNames.map((nativeNameObj, index) => {
+                        return (
+                          nativeNameObj.common +
+                          (index < nativeNames.length - 1 ? ", " : "")
+                        );
+                      })}
+                    </span>
+                  </li>
+                  <li className="mb-2">
+                    <strong className="font-semibold">Population: </strong>
+                    <span>{population}</span>
+                  </li>
+                  <li className="mb-2">
+                    <strong className="font-semibold">Region: </strong>
+                    <span>{region}</span>
+                  </li>
+                  <li className="mb-2">
+                    <strong className="font-semibold">Sub Region: </strong>
+                    <span>{subregion}</span>
+                  </li>
+                  <li className="mb-2">
+                    <strong className="font-semibold">Capital: </strong>
+                    <span>{capital[0]}</span>
+                  </li>
+                </ul>
 
-              <ul>
-                <li>
-                  <strong>Native Name: </strong>
-                  <span>
-                    {Object.values(name.nativeName).map(
-                      (nativeNameObj) => nativeNameObj.common + " "
-                    )}
-                  </span>
-                </li>
-                <li>
-                  <strong>Population: </strong>
-                  <span>{population}</span>
-                </li>
-                <li>
-                  <strong>Region: </strong>
-                  <span>{region}</span>
-                </li>
-                <li>
-                  <strong>Sub Region: </strong>
-                  <span>{subregion}</span>
-                </li>
-                <li>
-                  <strong>Capital: </strong>
-                  <span>{capital[0]}</span>
-                </li>
-              </ul>
-
-              <ul>
-                <li>
-                  <strong>Top level domain: </strong>
-                  <span>{tld}</span>
-                </li>
-                <li>
-                  <strong>Currencies: </strong>
-                  <span>
-                    {Object.values(currencies).map(
-                      (currencyObj) => currencyObj.name + " "
-                    )}
-                  </span>
-                </li>
-                <li>
-                  <strong>Languages: </strong>
-                  <span>{Object.values(languages).join(", ")}</span>
-                </li>
-              </ul>
-              <BorderCountriesList borderCountriesCodes={borders} />
+                <ul className="mb-10">
+                  <li className="mb-2">
+                    <strong className="font-semibold">
+                      Top level domain:{" "}
+                    </strong>
+                    <span>{tld}</span>
+                  </li>
+                  <li className="mb-2">
+                    <strong className="font-semibold">Currencies: </strong>
+                    <span>
+                      {Object.values(currencies).map(
+                        (currencyObj) => currencyObj.name + " "
+                      )}
+                    </span>
+                  </li>
+                  <li className="mb-2">
+                    <strong className="font-semibold">Languages: </strong>
+                    <span>{Object.values(languages).join(", ")}</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="mb-16">
+                <BorderCountriesList borderCountriesCodes={borders} />
+              </div>
             </div>
           </section>
         </ErrorBoundry>
